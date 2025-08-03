@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { leads, callLogs } from "@/lib/db/schema";
+import { leads, callLogs } from "@/lib/dbSchema/schema";
 
 export async function GET() {
   const leadsCount = await db

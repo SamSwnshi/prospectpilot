@@ -22,7 +22,7 @@ export default function BusinessInputForm() {
     };
 
     return (
-        <main className="max-w-lg mx-auto mt-12 p-6 bg-white rounded shadow">
+        <main className="max-w-xl  mx-auto mt-12 p-6 bg-white rounded-md shadow-md">
             <h1 className="text-3xl mb-6 font-semibold">Generate Leads</h1>
             <form onSubmit={onSubmit} className="space-y-4">
                 <div>
