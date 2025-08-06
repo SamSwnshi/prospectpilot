@@ -5,11 +5,17 @@ import { useEffect, useState } from 'react';
 export default function LeadsPage() {
     const [leads, setLeads] = useState([]);
 
-    useEffect(() => {
-        fetch('/api/leads')
-            .then(res => res.json())
-            .then(setLeads);
-    }, []);
+  useEffect(() => {
+  fetch('/api/leads')
+    .then(res => res.json())
+    .then(data => {
+      console.log('Leads fetched from API:', data);  // <-- This logs the data
+      setLeads(data);
+    })
+    .catch(err => {
+      console.error('Failed to fetch leads:', err);
+    });
+}, []);
 
     return (
         <main className="max-w-5xl mx-auto mt-12 p-4">
