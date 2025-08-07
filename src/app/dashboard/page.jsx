@@ -7,8 +7,18 @@ export default function Dashboard() {
 
     useEffect(() => {
         fetch('/api/dashboard')
-            .then(res => res.json())
-            .then(setStats);
+            .then(res => {
+                if (!res.ok) throw new Error('API response not OK');
+                return res.json();
+            })
+            .then(data => {
+                console.log('Dashboard fetched from API:', data);
+                setStats(data);
+            })
+            .catch(error => {
+                console.error('Failed to fetch dashboard data:', error);
+                setStats({ leads: 0, emailsSent: 0, calls: 0 });
+            });
     }, []);
 
     return (
@@ -17,15 +27,15 @@ export default function Dashboard() {
             <div className="grid grid-cols-3 gap-6 text-center">
                 <div>
                     <h2 className="text-xl font-medium">Leads</h2>
-                    <p className="text-4xl font-bold">{stats.leads}</p>
+                    <p className="text-4xl font-bold">{stats?.leads ?? 0}</p>
                 </div>
                 <div>
                     <h2 className="text-xl font-medium">Emails Sent</h2>
-                    <p className="text-4xl font-bold">{stats.emailsSent}</p>
+                    <p className="text-4xl font-bold">{stats?.emailsSent ?? 0}</p>
                 </div>
                 <div>
                     <h2 className="text-xl font-medium">Calls Logged</h2>
-                    <p className="text-4xl font-bold">{stats.calls}</p>
+                    <p className="text-4xl font-bold">{stats?.calls ?? 0}</p>
                 </div>
             </div>
         </main>
